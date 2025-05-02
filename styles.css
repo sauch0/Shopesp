@@ -1,0 +1,533 @@
+/* 🎮 Global Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #000000;
+    color: #000000;
+    padding-top: 60px; /* Prevents navbar from overlapping content */
+}
+
+/* 🏆 Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 12px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    text-decoration: underline ;
+    color: orangered;
+}
+
+.nav-signin .btn {
+    background-color: #ff0000;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.nav-signin .btn:hover {
+    background-color: #e55b00;
+}
+
+/* 🎽 Products Section */
+.products-container h2 {
+    text-align: left;
+    margin-top: 20px;
+    color: #ffffff;
+    margin-left: 100px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.product {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 250px;
+    text-align: center;
+    padding: 15px;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.product h3 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.product p {
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.product .btn {
+    display: inline-block;
+    background-color: #000000;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.product .btn:hover {
+    background-color: #ff0000;
+}
+
+/* 🛍 Cart & Checkout */
+.cart-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h2 {
+    text-align: center;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.cart-item img {
+    width: 80px;
+    height: auto;
+}
+
+.cart-item .btn {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.cart-item .btn:hover {
+    background-color: darkred;
+}
+
+/* 🛠 Forms (Login, Register, Admin) */
+form h2{
+    color: #000000;
+}
+form {
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+    text-align: center;
+}
+
+form img{
+    width: 200px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form textarea{
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #ff0000;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background-color: #e55400;
+}
+
+/* 🔐 Admin Dashboard */
+.admin-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-container h2 {
+    text-align: center;
+}
+
+.admin-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.admin-btn:hover {
+    background-color: #0056b3;
+}
+
+/* 🏁 Footer Styles */
+footer{
+    background-color: #1a1a1a;
+    width: 100%;
+    bottom: 0;
+    position: relative;
+    padding: 30px;
+}
+
+footer .social{
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+/* styling the icons */
+
+footer .social a{
+    color: white;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 10px;
+    transition: all 0.5s ease;
+    margin-bottom: 0;
+}
+
+footer .social a:hover{
+    transform: scale(1.5)translateY(-5px)rotate(360deg);
+}
+
+/* other contents of footer */
+footer ul{
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+footer ul li {
+    display: inline-block;
+    padding: 15px;
+}
+
+footer ul li a{
+    text-decoration: none;
+    color: white;
+    transition:0.5 ease;
+}
+
+/* when you hover it */
+
+footer ul li a:hover{
+    text-decoration: underline;
+    color: orangered;
+}
+
+/* For the paragraph in footer */
+footer p{
+    color: white;
+    font-size: 15px;
+    text-align: center;
+}
+
+/* for hero img */
+.heroImg {
+    height: 60vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative; /* Added to allow absolute positioning of text */
+}
+
+.heroImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Optional: makes sure the image covers the div without stretching */
+}
+
+.heroImg .imgtext {
+    position: absolute;
+    top: 79%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    transform: translate(-50%, 0%); /* Centers the text horizontally and vertically */
+    color: white; /* Makes the text color white to stand out on the image */
+    font-size: 2em; /* Adjust the font size to your liking */
+    font-weight: bold; /* Optional: makes the text bolder */
+}
+
+/* 🏆 Product Details Page */
+.product-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 60%;
+    border-radius: 10px;
+}
+
+.product-details img {
+    width: 300px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.product-info {
+    max-width: 400px;
+}
+
+.price {
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.btn {
+    background-color: #000000;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #ff0000;
+}
+
+/* 🛒 Cart Page */
+.cart-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h2 {
+    text-align: center;
+}
+
+.cart-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cart-container th, .cart-container td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.cart-container img {
+    width: 50px;
+    height: auto;
+}
+
+.remove-btn {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: darkred;
+}
+
+/* 🎯 Checkout Page Styles */
+.checkout-container {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.checkout-container h2 {
+    text-align: center;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.user-info p {
+    margin: 5px 0;
+}
+
+.checkout-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.checkout-container th, .checkout-container td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.checkout-container th {
+    background: #ff6600;
+    color: white;
+}
+
+.checkout-btn {
+    background-color: #ff6600;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.checkout-btn:hover {
+    background-color: #e55b00;
+}
+
+/* 🎯 About Page Styles */
+.about-container {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.about-container h2 {
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.about-container h3 {
+    color: #222;
+    margin-top: 20px;
+}
+
+.about-container p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.about-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about-container li {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.about-container li::before {
+    content: "✔️ ";
+    color: #ff6600;
+    font-weight: bold;
+}
+
