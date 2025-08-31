@@ -31,8 +31,8 @@ if (empty($cart_items)) {
     exit();
 }
 
-// Handle order placement
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Handle COD order placement
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['payment_method']) && $_POST['payment_method'] === "COD") {
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $phone = mysqli_real_escape_string($conn, $_POST['phone']);
 
@@ -40,14 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $product_id = $item['product_id'];
         $quantity = $item['quantity'];
 
-        mysqli_query($conn, "INSERT INTO orders (user_id, product_id, quantity, address, phone, status) 
-                             VALUES ('$user_id', '$product_id', '$quantity', '$address', '$phone', 'pending')");
+        mysqli_query($conn, "INSERT INTO orders (user_id, product_id, quantity, address, phone, status, payment_method) 
+                             VALUES ('$user_id', '$product_id', '$quantity', '$address', '$phone', 'pending', 'COD')");
     }
 
     // Clear the user's cart after order placement
     mysqli_query($conn, "DELETE FROM cart WHERE user_id = '$user_id'");
 
-    echo "<script>alert('Order placed successfully!'); window.location.href='orders.php';</script>";
+    echo "<script>alert('Order placed successfully with Cash on Delivery!'); window.location.href='orders.php';</script>";
     exit();
 }
 ?>
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Checkout - Cash on Delivery</title>
+    <title>Checkout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -111,42 +111,103 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <h3>Total: Rs.<?php echo number_format($total_price, 2); ?></h3>
 
+    <!-- COD FORM -->
     <form action="checkout.php" method="POST" onsubmit="return validate()">
+        <input type="hidden" name="payment_method" value="COD">
+
         <label for="address">Enter Shipping Address:</label>
         <input type="text" name="address" id="address" required>
 
         <label for="phone">Enter Phone Number:</label>
         <input type="text" name="phone" id="phone" required>
 
-        <br><br>
-        <p>Note: Write Address in the following format:<br> Name of place, City Name</p><br>
-        <p>Example: Kumaripati, Lalitpur</p><br>
+        <p>Note: Write Address in the format: Name of place, City</p>
+        <p>Example: Kumaripati, Lalitpur</p>
 
         <button type="submit" class="btn checkout-btn">Place Order (Cash on Delivery)</button>
     </form>
+
+    <hr style="margin: 30px 0;">
+
+    <!-- eSewa Payment Form -->
+<!-- eSewa Payment Form -->
+<form id="esewaForm" action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST" target="_blank">
+    <!-- Base amount (same as total since no fees) -->
+    <input type="hidden" id="amount" name="amount" value="<?php echo $total_price; ?>">
+
+    <!-- Charges -->
+    <input type="hidden" id="tax_amount" name="tax_amount" value="0">
+    <input type="hidden" id="product_service_charge" name="product_service_charge" value="0">
+    <input type="hidden" id="product_delivery_charge" name="product_delivery_charge" value="0">
+
+    <!-- Total (must equal amount + charges) -->
+    <input type="hidden" id="total_amount" name="total_amount" value="<?php echo $total_price; ?>">
+
+    <!-- Required fields -->
+    <input type="hidden" id="transaction_uuid" name="transaction_uuid" value="">
+    <input type="hidden" id="product_code" name="product_code" value="EPAYTEST">
+    <input type="hidden" id="success_url" name="success_url" value="http://localhost/shopesp2.0/esewa_success.php">
+    <input type="hidden" id="failure_url" name="failure_url" value="http://localhost/shopesp2.0/esewa_failure.php">
+    <input type="hidden" id="signed_field_names" name="signed_field_names" value="total_amount,transaction_uuid,product_code">
+    <input type="hidden" id="signature" name="signature" value="">
+
+    <button type="submit" class="btn checkout-btn">Pay with eSewa</button>
+</form>
+
+
+
 
 </div>
 
 <?php include 'footer.php'; ?>
 
 <script>
-    function validate() {
-        const phone = document.getElementById('phone').value;
-        const address = document.getElementById('address').value;
+function validate() {
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
 
-        if (!/^[0-9]{10}$/.test(phone)) {
-            alert("Please enter a valid 10-digit phone number.");
-            return false; 
-        }
-
-        if (address.length >= 25) {
-            alert('The name of address is too long.');
-            return false;
-        }
-
-        return true;
+    if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Please enter a valid 10-digit phone number.");
+        return false; 
     }
+
+    if (address.length >= 25) {
+        alert('The name of address is too long.');
+        return false;
+    }
+    return true;
+}
+
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+<script>
+  const secret = "8gBm/:&EnhH.1/q"; // Sandbox secret
+  const form = document.getElementById("esewaForm");
+  const totalInput = document.getElementById("total_amount");
+  const uuidInput = document.getElementById("transaction_uuid");
+  const signatureInput = document.getElementById("signature");
+
+  function generateTransactionUUID() {
+      const now = new Date();
+      return 'TXN-' + now.getTime();
+  }
+
+  function generateSignature() {
+      const total_amount = totalInput.value;
+      const transaction_uuid = uuidInput.value;
+      const product_code = document.getElementById("product_code").value;
+
+      const data = `total_amount=${total_amount},transaction_uuid=${transaction_uuid},product_code=${product_code}`;
+      const hash = CryptoJS.HmacSHA256(data, secret);
+      signatureInput.value = CryptoJS.enc.Base64.stringify(hash);
+  }
+
+  form.addEventListener("submit", function() {
+      uuidInput.value = generateTransactionUUID();
+      generateSignature();
+  });
+</script>
+
 
 </body>
 </html>
