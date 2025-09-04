@@ -3,7 +3,7 @@ session_start();
 include 'dbconnection.php';
 require 'vendor/autoload.php'; // Stripe PHP library
 
-\Stripe\Stripe::setApiKey('sk_test_51S2NPZCmz2TmtiKUqiXWpzJ8tFHyGaRW1iOGPd2Srt6PxbMWl8EiMtunKdxEHfsBr84GQgWqXjzz6bs3HYeKhtjq00Y3Lt7c1b'); // Stripe Test Secret Key
+// \Stripe\Stripe::setApiKey('sk_test_51S2NPZCmz2TmtiKUqiXWpzJ8tFHyGaRW1iOGPd2Srt6PxbMWl8EiMtunKdxEHfsBr84GQgWqXjzz6bs3HYeKhtjq00Y3Lt7c1b'); // Stripe Test Secret Key
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
