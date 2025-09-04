@@ -1,6 +1,4 @@
 <?php
-include 'dbconnection.php';
-
-if (isset($_GET['q']) && $_GET['q'] == 'fu') {
-    echo "<script>alert('Payment Failed!'); window.location.href='checkout.php';</script>";
-}
+session_start();
+echo "<script>alert('Payment failed! Please try again.'); window.location.href='checkout.php';</script>";
+exit();

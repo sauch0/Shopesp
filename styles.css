@@ -531,3 +531,16 @@ footer p{
     font-weight: bold;
 }
 
+.button-row {
+    display: flex;
+    gap: 15px; /* spacing between buttons */
+    margin-top: 20px;
+}
+
+.button-row .btn {
+    flex: unset;          /* remove the stretch */
+    width: auto;          /* let them size naturally */
+    min-width: 180px;     /* optional: give them a consistent min size */
+}
+
+

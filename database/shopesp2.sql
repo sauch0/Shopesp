@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2025 at 06:29 AM
+-- Generation Time: Sep 04, 2025 at 09:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,8 @@ INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
 (23, 10, 15, 999),
 (24, 10, 11, 100),
 (38, 11, 13, 1),
-(43, 12, 13, 2147483647);
+(43, 12, 13, 2147483647),
+(75, 8, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -57,7 +58,8 @@ CREATE TABLE `orders` (
   `quantity` int(11) NOT NULL CHECK (`quantity` > 0),
   `address` varchar(255) NOT NULL,
   `phone` varchar(15) NOT NULL,
-  `status` enum('pending','delivered','cancelled') DEFAULT 'pending',
+  `status` enum('pending','paid','shipped','delivered','cancelled') NOT NULL DEFAULT 'pending',
+  `payment_method` varchar(20) NOT NULL DEFAULT 'COD',
   `order_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -65,30 +67,35 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `user_id`, `product_id`, `quantity`, `address`, `phone`, `status`, `order_date`) VALUES
-(11, 8, 11, 1, 'Ikhalukhu, Lalitpur', '9841223456', 'delivered', '2025-03-17 12:10:14'),
-(12, 8, 4, 1, 'Ikhalukhu, Lalitpur', '9841223456', 'delivered', '2025-03-17 12:10:14'),
-(13, 8, 14, 2, 'Ikhalukhu, Lalitpur', '9841223456', 'delivered', '2025-03-17 12:10:14'),
-(14, 8, 16, 1, 'Ikhalukhu, Lalitpur', '9841223456', 'cancelled', '2025-03-17 12:10:14'),
-(15, 8, 2, 1, 'Ikhalukhu, Lalitpur', '2342334523', 'cancelled', '2025-03-17 12:12:33'),
-(16, 8, 4, 4, 'Ikhalukhu, Lalitpur', '3214569874', 'delivered', '2025-03-18 01:13:15'),
-(17, 8, 13, 3, 'Ikhalukhu, Lalitpur', '2342334523', 'delivered', '2025-03-18 03:33:12'),
-(18, 8, 1, 3, 'Lalitpur, Nepal', '1111111111', 'delivered', '2025-03-18 03:45:26'),
-(19, 8, 12, 1, 'Lalitpur, Nepal', '2342334523', 'cancelled', '2025-03-22 23:23:15'),
-(20, 8, 11, 3, 'Lalitpur, Nepal', '2342334523', 'cancelled', '2025-03-22 23:23:15'),
-(21, 8, 9, 4, 'Lalitpur, Nepal', '2342334523', 'pending', '2025-03-23 03:05:08'),
-(22, 8, 5, 4, 'Lalitpur, Nepal', '2342334523', 'pending', '2025-03-23 03:05:08'),
-(23, 8, 12, 1, 'mega college,kumaripati', '0098465995', 'delivered', '2025-03-23 03:15:02'),
-(24, 8, 15, 10000, 'mega college,kumaripati', '0098465995', 'cancelled', '2025-03-23 03:15:02'),
-(25, 8, 12, 1, 'ftjhfukukkyujjutujt', '4545677777', 'pending', '2025-03-23 03:48:47'),
-(26, 11, 15, 1, 'Ikhalukhu, Lalitpur', '9841223456', 'pending', '2025-03-24 01:57:45'),
-(27, 8, 12, 4, 'Ikhalukhu, Lalitpur', '9841223456', 'cancelled', '2025-03-25 06:52:43'),
-(28, 8, 13, 1, 'Ikhalukhu, Lalitpur', '9841223456', 'delivered', '2025-03-25 06:52:43'),
-(29, 8, 4, 1, 'Ikhalukhu, Lalitpur', '9841223456', 'pending', '2025-03-25 06:52:43'),
-(30, 12, 11, 101, 'lagenkhel', '2342334523', 'delivered', '2025-03-27 02:32:04'),
-(31, 12, 16, 100, 'lagenkhel', '2342334523', 'delivered', '2025-03-27 02:32:04'),
-(32, 12, 5, 100, 'lagenkhel', '2342334523', 'delivered', '2025-03-27 02:32:04'),
-(33, 8, 15, 4, 'ADDa', '9841232154', 'delivered', '2025-04-26 12:24:24');
+INSERT INTO `orders` (`order_id`, `user_id`, `product_id`, `quantity`, `address`, `phone`, `status`, `payment_method`, `order_date`) VALUES
+(38, 8, 16, 1, 'eSewa Payment', 'N/A', 'paid', 'eSewa', '2025-09-01 11:50:26'),
+(39, 8, 13, 1, 'lalitpur', '9841232154', 'cancelled', 'COD', '2025-09-01 11:52:17'),
+(40, 8, 15, 1, 'eSewa Payment', 'NA', 'paid', 'eSewa', '2025-09-01 12:05:13'),
+(41, 8, 13, 1, 'lalitpur', '9841232154', 'cancelled', 'COD', '2025-09-01 12:06:53'),
+(42, 8, 15, 1, 'eSewa Payment', 'NA', 'paid', 'eSewa', '2025-09-01 12:07:56'),
+(43, 8, 15, 1, 'eSewa Payment', 'NA', 'paid', 'eSewa', '2025-09-01 12:10:21'),
+(44, 8, 15, 1, 'Unknown', '0000000000', 'paid', 'ESEWA', '2025-09-01 12:15:13'),
+(45, 8, 15, 1, 'lalitpur', '9806800001', 'cancelled', 'COD', '2025-09-01 12:23:41'),
+(46, 8, 15, 1, 'lalitpur', '9841232154', 'paid', 'ESEWA', '2025-09-01 12:25:48'),
+(47, 8, 15, 1, 'lalitpur', '9841232154', 'paid', 'ESEWA', '2025-09-01 12:31:58'),
+(48, 8, 15, 1, 'lalitpur', '9841232154', 'delivered', 'ESEWA', '2025-09-01 12:45:05'),
+(49, 8, 15, 1, 'adasdwasdwa', '9806800001', 'delivered', 'ESEWA', '2025-09-02 06:22:11'),
+(50, 8, 13, 1, 'lalitpur', '9806800001', 'delivered', 'COD', '2025-09-02 06:22:57'),
+(51, 8, 15, 1, 'lalitpur', '9806800001', 'delivered', 'eSewa', '2025-09-02 06:43:34'),
+(52, 8, 15, 1, 'lalitpur', '9806800001', 'cancelled', 'COD', '2025-09-02 08:30:56'),
+(53, 13, 15, 1, 'ikhalukhu, lalitpur', '9810140317', 'paid', 'eSewa', '2025-09-02 08:37:45'),
+(54, 8, 15, 2, 'lalitpur', '9806800001', 'paid', 'eSewa', '2025-09-03 00:25:25'),
+(55, 8, 15, 2, 'lalitpur', '9841232154', 'paid', 'Stripe', '2025-09-04 05:49:24'),
+(56, 8, 13, 1, 'lalitpur', '9806800001', 'paid', 'eSewa', '2025-09-04 05:50:53'),
+(57, 8, 5, 1, 'lalitpur', '9841232154', 'paid', 'Stripe', '2025-09-04 05:51:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+-- Error reading structure for table shopesp2.order_items: #1932 - Table &#039;shopesp2.order_items&#039; doesn&#039;t exist in engine
+-- Error reading data for table shopesp2.order_items: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#039;FROM `shopesp2`.`order_items`&#039; at line 1
 
 -- --------------------------------------------------------
 
@@ -124,7 +131,7 @@ INSERT INTO `products` (`id`, `name`, `price`, `image`, `description`, `type`) V
 (12, 'The ROG Azoth', 2900.00, 'uploads/The ROG Azoth.jpg', 'The ROG Azoth is a fully customizable, premium mechanical gaming keyboard', 'keyboard & mouse'),
 (13, 'Logitech G413 TKL SE ', 3000.00, 'uploads/Logitech G413 TKL SE.jpg', 'Logitech G413 TKL SE Fully Customizable Gaming Keyboard. ', 'keyboard & mouse'),
 (14, 'Team GenG', 2600.00, 'uploads/genghoodie.jpg', 'A Black Hoodie worn by the professional players of Team GenG who plays in LCK.', 'hoodie'),
-(15, 'Logitech G502 ', 800.00, 'uploads/g502-lightspeed.png', 'Logitech G502 a light speed gaming mouse.', 'keyboard & mouse'),
+(15, 'Logitech G502 ', 10.00, 'uploads/g502-lightspeed.png', 'Logitech G502 a light speed gaming mouse.', 'keyboard & mouse'),
 (16, 'Red Dragon M914', 900.00, 'uploads/redragon-m914.jpg', 'Red Dragon M914 wireless gaming mouse with bluetooth.', 'keyboard & mouse');
 
 -- --------------------------------------------------------
@@ -150,7 +157,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`) VALUES
 (9, 'admin', 'admin@gmail.com', '$2y$10$nqoLekTkdFri3oZMwurl7.K/hXlsEcr5LtV18H/ZtkykT4YrIur7W', 'admin'),
 (10, 'susan', 'susan1@gmail.com', '$2y$10$TRyG9uqB6vWIluNMpeplzO.SdQG/mqm44KGQu4D6ymyT3MRVK5e/6', 'user'),
 (11, 'manish', 'manish@gmail.com', '$2y$10$mgzL7oXVBzfWbHHmGFwP1Oq5h85s7OT5M/4YnOTlhxW/YLHnLzide', 'user'),
-(12, 'fuck u', 'fuckumf@gmail.com', '$2y$10$kSO4s4gWLV1p7Pj.X.dqUefMUJQz/3qdoDl70VvpYBxKeO2wb/bGm', 'user');
+(12, 'fuck u', 'fuckumf@gmail.com', '$2y$10$kSO4s4gWLV1p7Pj.X.dqUefMUJQz/3qdoDl70VvpYBxKeO2wb/bGm', 'user'),
+(13, 'yachi', 'chitrakarsaumya2004@gmail.com', '$2y$10$Ukob4YOwxpWuOEwJ0nud0uGEDyjji.boCSabFXm4usrr5uK0MPNO.', 'user');
 
 --
 -- Indexes for dumped tables
@@ -194,13 +202,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -212,7 +220,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

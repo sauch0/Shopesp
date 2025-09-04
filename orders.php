@@ -162,47 +162,50 @@ $result = $stmt->get_result();
     <h2>My Orders</h2>
     <table>
         <thead>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Payment Method</th>
+        <th>Status</th>
+        <th>Order Date</th>
+        <th>Action</th>
+    </tr>
+</thead>
+    <tbody>
+        <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Status</th>
-                <th>Order Date</th>
-                <th>Action</th>
+                <td>
+                    <div class="product-info">
+                        <img src="<?= 'uploads/' . basename($row['image']) ?>" 
+                            alt="<?= htmlspecialchars($row['name']) ?>" 
+                            onerror="this.src='default.jpg';">
+                        <span><?= htmlspecialchars($row['name']) ?></span>
+                    </div>
+                </td>
+                <td><?= htmlspecialchars($row['quantity']) ?></td>
+                <td><?= htmlspecialchars($row['address']) ?></td>
+                <td><?= htmlspecialchars($row['phone']) ?></td>
+                <td><?= htmlspecialchars($row['payment_method']) ?></td>
+                <td class="status <?= $row['status'] ?>">
+                    <?= ucfirst(htmlspecialchars($row['status'])) ?>
+                </td>
+                <td><?= htmlspecialchars($row['order_date']) ?></td>
+                <td>
+                    <?php if ($row['status'] == 'pending'): ?>
+                        <form method="post">
+                            <input type="hidden" name="order_id" value="<?= $row['order_id'] ?>">
+                            <button type="submit" name="cancel_order" class="btn-cancel">Cancel</button>
+                        </form>
+                    <?php else: ?>
+                        <button class="btn-disabled" disabled>Not Available</button>
+                    <?php endif; ?>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td>
-                        <div class="product-info">
-                            <img src="<?= 'uploads/' . basename($row['image']) ?>" 
-                                 alt="<?= htmlspecialchars($row['name']) ?>" 
-                                 onerror="this.src='default.jpg';">
-                            <span><?= htmlspecialchars($row['name']) ?></span>
-                        </div>
-                    </td>
-                    <td><?= htmlspecialchars($row['quantity']) ?></td>
-                    <td><?= htmlspecialchars($row['address']) ?></td>
-                    <td><?= htmlspecialchars($row['phone']) ?></td>
-                    <td class="status <?= $row['status'] ?>">
-                        <?= ucfirst(htmlspecialchars($row['status'])) ?>
-                    </td>
-                    <td><?= htmlspecialchars($row['order_date']) ?></td>
-                    <td>
-                        <?php if ($row['status'] == 'pending'): ?>
-                            <form method="post">
-                                <input type="hidden" name="order_id" value="<?= $row['order_id'] ?>">
-                                <button type="submit" name="cancel_order" class="btn-cancel">Cancel</button>
-                            </form>
-                        <?php else: ?>
-                            <button class="btn-disabled" disabled>Not Available</button>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
-        </tbody>
+        <?php endwhile; ?>
+    </tbody>
+
     </table>
 </div>
 
